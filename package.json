@@ -1,0 +1,9 @@
+{
+    "name": "did.services",
+    "version": "0.0.1",
+    "description": "Spec DID Services",
+    "dependencies": {
+        "@spec.dev/did": "^0.0.1",
+        "@spec.dev/gql": "^0.0.3"
+    }
+}
