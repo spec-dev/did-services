@@ -1,26 +1,30 @@
 const { gql } = require('@spec.dev/gql')
 
-const GET_USER_DID_PAIR = gql`
-    query getUserDidPair($id: String!) {
-        user(id: $id) {
-            id
-            did {
-                domain
-                provider
-                email
-                url
-                avatar
-                name
-                description
-            }
-            createdAt
+const GET_DID_BY_USER_ID = gql`
+    query getDidByUserId($userId: String!) {
+        did(userId: $userId) {
+            userId
+            domain
+            provider
+            email
+            url
+            avatar
+            name
+            description
         }
     }
 `
 
-const CREATE_USER = gql`
-    mutation createUser($id: String!) {
-        createUser(input: { user: { id: $id }}) {
+const UPSERT_USER = gql`
+    mutation upsertUser($id: String!) {
+        upsertUser(
+            where: { id: $id }
+            input: {
+                user: {
+                    id: $id
+                }
+            }
+        ) {
             user {
                 id
                 createdAt
@@ -29,8 +33,8 @@ const CREATE_USER = gql`
     }
 `
 
-const CREATE_DID = gql`
-    mutation createDid(
+const UPSERT_DID = gql`
+    mutation upsertDid(
         $userId: String!
         $domain: String!
         $provider: String!
@@ -40,17 +44,23 @@ const CREATE_DID = gql`
         $name: String
         $description: String
     ) {
-        createDid(input: { did: {
-            userId: $userId
-            domain: $domain
-            provider: $provider
-            email: $email
-            url: $url
-            avatar: $avatar
-            name: $name
-            description: $description
-        }}) {
+        upsertDid(
+            where: { userId: $userId }
+            input: {
+                did: {
+                    userId: $userId
+                    domain: $domain
+                    provider: $provider
+                    email: $email
+                    url: $url
+                    avatar: $avatar
+                    name: $name
+                    description: $description
+                }
+            }
+        ) {
             did {
+                userId
                 domain
                 provider
                 email
@@ -64,7 +74,7 @@ const CREATE_DID = gql`
 `
 
 module.exports = {
-    GET_USER_DID_PAIR,
-    CREATE_USER,
-    CREATE_DID,
+    GET_DID_BY_USER_ID,
+    UPSERT_USER,
+    UPSERT_DID,
 }

@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "description": "Spec DID Services",
     "dependencies": {
-        "@spec.dev/did": "^0.0.1",
+        "@spec.dev/did": "^0.0.7",
         "@spec.dev/gql": "^0.0.3"
     }
 }
