@@ -1,18 +1,15 @@
 const addressToUserId = address => address
 
-const formatDidRecord = (address, didData = {}) => {
-    const { domain, provider, textRecords = {} } = didData
-    return {
-        userId: addressToUserId(address),
-        domain,
-        provider,
-        email: textRecords.email,
-        url: textRecords.url,
-        avatar: textRecords.avatar,
-        name: textRecords.name,
-        description: textRecords.description,
-    }
-}
+const formatDidRecord = (address, didData = {}) => ({
+    userId: addressToUserId(address),
+    domain: didData.domain,
+    provider: didData.provider,
+    email: didData.email,
+    url: didData.url,
+    avatar: didData.avatar,
+    name: didData.name,
+    description: didData.description,
+})
 
 module.exports = {
     addressToUserId,
